@@ -92,6 +92,8 @@ def main(args):
     with progress_bar.build_progress_bar(args, itr) as t:
         wps_meter = TimeMeter()
         for sample in t:
+            if args.n_obs > 0 and num_sentences >= args.n_obs:
+                break
             sample = utils.move_to_cuda(sample) if use_cuda else sample
             if 'net_input' not in sample:
                 continue
